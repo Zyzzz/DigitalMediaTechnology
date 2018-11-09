@@ -29,7 +29,7 @@ class MyApp(QMainWindow,Ui_MainWindow):
         QMainWindow.__init__(self)
         super().__init__()
         self.initUI()
-
+        print("self.statusbar.currentMessage():",self.statusbar.currentMessage())
     def initUI(self):
         self.setupUi(self)
         self.actionOpen_File.triggered.connect(self.openMsg)
@@ -43,34 +43,35 @@ class MyApp(QMainWindow,Ui_MainWindow):
         self.graphicsView.setScene(self.scene)
         self.statusbar.showMessage(self.file)
     def oncle(self):
-        if self.comboBox.currentText() =="YOLO":
-            parser = argparse.ArgumentParser()
-            parser.add_argument('--weights', default="YOLO_small.ckpt", type=str)
-            parser.add_argument('--weight_dir', default='weights', type=str)
-            parser.add_argument('--data_dir', default="data", type=str)
-            parser.add_argument('--gpu', default='', type=str)
-            args = parser.parse_args()
-            os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
-            yolo = YOLONet(False)
-            weight_file = os.path.join(args.data_dir, args.weight_dir, args.weights)
-            detector = Detector(yolo, weight_file)
-            # detect from camera
-            # cap = cv2.VideoCapture(-1)
-            # detector.camera_detector(cap)
-            # detect from image file
-            imname = self.file
-            detector.image_detector(imname)
-            scene = QGraphicsScene()
-            pixmap = QPixmap("D:\\result.jpg")
-            scene.addPixmap(pixmap)
-            self.graphicsView_2.setScene(scene)
-        elif self.comboBox.currentText() =="MaskRCNN":
-            self.maskRCNN = demo.MaskRCNN()
-            self.maskRCNN.detect(self.file)
-            scene = QGraphicsScene()
-            pixmap = QPixmap("D:\\result3.jpg")
-            scene.addPixmap(pixmap)
-            self.graphicsView_2.setScene(scene)
+        if self.statusbar.currentMessage()!='':
+            if self.comboBox.currentText() =="YOLO":
+                parser = argparse.ArgumentParser()
+                parser.add_argument('--weights', default="YOLO_small.ckpt", type=str)
+                parser.add_argument('--weight_dir', default='weights', type=str)
+                parser.add_argument('--data_dir', default="data", type=str)
+                parser.add_argument('--gpu', default='', type=str)
+                args = parser.parse_args()
+                os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
+                yolo = YOLONet(False)
+                weight_file = os.path.join(args.data_dir, args.weight_dir, args.weights)
+                detector = Detector(yolo, weight_file)
+                # detect from camera
+                # cap = cv2.VideoCapture(-1)
+                # detector.camera_detector(cap)
+                # detect from image file
+                imname = self.file
+                detector.image_detector(imname)
+                scene = QGraphicsScene()
+                pixmap = QPixmap("D:\\result.jpg")
+                scene.addPixmap(pixmap)
+                self.graphicsView_2.setScene(scene)
+            elif self.comboBox.currentText() =="MaskRCNN":
+                self.maskRCNN = demo.MaskRCNN()
+                self.maskRCNN.detect(self.file)
+                scene = QGraphicsScene()
+                pixmap = QPixmap("D:\\result3.jpg")
+                scene.addPixmap(pixmap)
+                self.graphicsView_2.setScene(scene)
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MyApp()
