@@ -30,7 +30,7 @@ class InferenceConfig(coco.CocoConfig):
 # Root directory of the project
 class MaskRCNN():
     def __init__(self):
-        ROOT_DIR = 'C:\\Users\\Administrator\\PycharmProjects\\GUITest\\Mask_RCNN'
+        ROOT_DIR =os.path.dirname(os.path.realpath(__file__))
 
 # Directory to save logs and trained model
         MODEL_DIR = os.path.join(ROOT_DIR, "logs")

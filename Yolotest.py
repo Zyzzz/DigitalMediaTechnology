@@ -65,9 +65,10 @@ class Detector(object):
         return result
 
     def detect_from_cvmat(self, inputs):
+        tf.reset_default_graph()
         net_output = self.sess.run(self.net.logits,
                                    feed_dict={self.net.images: inputs})
-        tf.reset_default_graph()
+
         results = []
         for i in range(net_output.shape[0]):
             results.append(self.interpret_output(net_output[i]))
