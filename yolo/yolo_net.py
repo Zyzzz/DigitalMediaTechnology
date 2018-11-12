@@ -8,6 +8,7 @@ slim = tf.contrib.slim
 class YOLONet(object):
 
     def __init__(self, is_training=True):
+        tf.reset_default_graph()
         self.classes = cfg.CLASSES
         self.num_class = len(self.classes)
         self.image_size = cfg.IMAGE_SIZE
