@@ -2373,7 +2373,8 @@ class MaskRCNN():
             self.keras_model.predict([molded_images, image_metas], verbose=0)
         # Process detections
 
-
+        K.clear_session()
+        tf.reset_default_graph()
         results = []
         for i, image in enumerate(images):
             final_rois, final_class_ids, final_scores, final_masks =\
