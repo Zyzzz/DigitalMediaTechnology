@@ -75,7 +75,7 @@ def apply_mask(image, mask, color, alpha=0.5):
 
 
 def display_instances(image, boxes, masks, class_ids, class_names,
-                      scores=None, title="",
+                      classes=[],scores=None, title="",
                       figsize=(16, 16), ax=None):
     """
     boxes: [num_instance, (y1, x1, y2, x2, class_id)] in image coordinates.
@@ -107,8 +107,9 @@ def display_instances(image, boxes, masks, class_ids, class_names,
 
     masked_image = image.astype(np.uint32).copy()
     for i in range(N):
+        if class_names[class_ids[i]] not in classes:
+            continue
         color = colors[i]
-
         # Bounding box
         if not np.any(boxes[i]):
             # Skip this instance. Has no bbox. Likely lost in image cropping.
@@ -118,7 +119,6 @@ def display_instances(image, boxes, masks, class_ids, class_names,
                               alpha=0.7, linestyle="dashed",
                               edgecolor=color, facecolor='none')
         ax.add_patch(p)
-
         # Label
         class_id = class_ids[i]
         score = scores[i] if scores is not None else None

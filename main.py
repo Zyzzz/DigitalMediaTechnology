@@ -76,7 +76,7 @@ class MyApp(QMainWindow,Ui_MainWindow):
                 self.graphicsView_2.setScene(scene)
             elif self.comboBox.currentText() =="MaskRCNN":
                 self.maskRCNN = demo.MaskRCNN()
-                self.maskRCNN.detect(self.file)
+                self.maskRCNN.detect(self.file,self.classes)
                 scene = QGraphicsScene()
                 pixmap = QPixmap("D:\\result3.jpg")
                 scene.addPixmap(pixmap)

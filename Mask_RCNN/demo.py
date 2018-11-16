@@ -123,7 +123,7 @@ class MaskRCNN():
 # Load a random image from the images folder
 #file_names = next(os.walk(IMAGE_DIR))[2]
 #image = skimage.io.imread(os.path.join(IMAGE_DIR, random.choice(file_names)))
-    def detect(self,flie):
+    def detect(self,flie,classes=[]):
         image = skimage.io.imread(flie)          #输入
         # Run detection
         results = self.model.detect([image], verbose=1)
@@ -131,7 +131,7 @@ class MaskRCNN():
         # Visualize results
         r = results[0]
         visualize.display_instances(image, r['rois'], r['masks'], r['class_ids'],
-                                    self.class_names, r['scores'])  # 输出
+                                    self.class_names,classes,r['scores'])  # 输出
 
 
 
