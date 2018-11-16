@@ -29,6 +29,7 @@ class MyApp(QMainWindow,Ui_MainWindow):
         QMainWindow.__init__(self)
         super().__init__()
         self.initUI()
+        self.classes = []
         print("self.statusbar.currentMessage():",self.statusbar.currentMessage())
     def initUI(self):
         self.setupUi(self)
@@ -44,6 +45,14 @@ class MyApp(QMainWindow,Ui_MainWindow):
         self.statusbar.showMessage(self.file)
     def oncle(self):
         if self.statusbar.currentMessage()!='':
+            if self.checkBox.isChecked():
+                self.classes.append("person")
+            if self.checkBox_2.isChecked():
+                self.classes.append("car")
+            if self.checkBox_3.isChecked():
+                self.classes.append("cat")
+            if self.checkBox_4.isChecked():
+                self.classes.append("dog")
             if self.comboBox.currentText() =="YOLO":
                 parser = argparse.ArgumentParser()
                 parser.add_argument('--weights', default="YOLO_small.ckpt", type=str)
@@ -60,7 +69,7 @@ class MyApp(QMainWindow,Ui_MainWindow):
                 # detector.camera_detector(cap)
                 # detect from image file
                 imname = self.file
-                detector.image_detector(imname)
+                detector.image_detector(imname,self.classes)
                 scene = QGraphicsScene()
                 pixmap = QPixmap("D:\\result.jpg")
                 scene.addPixmap(pixmap)

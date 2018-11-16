@@ -23,11 +23,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 from lib.config import config as cfg
-from lib.utils.nms_wrapper import nms
-from lib.utils.test import im_detect
+from Faster_RCNN.lib.utils.nms_wrapper import nms
+from Faster_RCNN.lib.utils.test import im_detect
 #from nets.resnet_v1 import resnetv1
-from lib.nets.vgg16 import vgg16
-from lib.utils.timer import Timer
+from Faster_RCNN.lib.nets.vgg16 import vgg16
+from Faster_RCNN.lib.utils.timer import Timer
 
 CLASSES = ('__background__',
            'aeroplane', 'bicycle', 'bird', 'boat',

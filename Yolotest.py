@@ -47,14 +47,14 @@ class Detector(object):
                 (x - w + 5, y - h - 7), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
                 (0, 0, 0), 1, lineType)
 
-    def detect(self, img):
+    def detect(self, img,classes=[]):
         img_h, img_w, _ = img.shape
         inputs = cv2.resize(img, (self.image_size, self.image_size))
         inputs = cv2.cvtColor(inputs, cv2.COLOR_BGR2RGB).astype(np.float32)
         inputs = (inputs / 255.0) * 2.0 - 1.0
         inputs = np.reshape(inputs, (1, self.image_size, self.image_size, 3))
 
-        result = self.detect_from_cvmat(inputs)[0]
+        result = self.detect_from_cvmat(inputs,classes)[0]
 
         for i in range(len(result)):
             result[i][1] *= (1.0 * img_w / self.image_size)
@@ -64,18 +64,18 @@ class Detector(object):
 
         return result
 
-    def detect_from_cvmat(self, inputs):
+    def detect_from_cvmat(self, inputs,classes=[]):
 
         net_output = self.sess.run(self.net.logits,
                                    feed_dict={self.net.images: inputs})
         tf.reset_default_graph()
         results = []
         for i in range(net_output.shape[0]):
-            results.append(self.interpret_output(net_output[i]))
+            results.append(self.interpret_output(net_output[i],classes))
 
         return results
 
-    def interpret_output(self, output):
+    def interpret_output(self, output,classes=[]):
         probs = np.zeros((self.cell_size, self.cell_size,
                           self.boxes_per_cell, self.num_class))
         class_probs = np.reshape(
@@ -135,14 +135,14 @@ class Detector(object):
 
         result = []
         for i in range(len(boxes_filtered)):
-            result.append(
-                [self.classes[classes_num_filtered[i]],
-                 boxes_filtered[i][0],
-                 boxes_filtered[i][1],
-                 boxes_filtered[i][2],
-                 boxes_filtered[i][3],
-                 probs_filtered[i]])
-
+            if self.classes[classes_num_filtered[i]] in classes:
+                result.append(
+                    [self.classes[classes_num_filtered[i]],
+                    boxes_filtered[i][0],
+                    boxes_filtered[i][1],
+                    boxes_filtered[i][2],
+                    boxes_filtered[i][3],
+                    probs_filtered[i]])
         return result
 
     def iou(self, box1, box2):
@@ -171,12 +171,12 @@ class Detector(object):
 
             ret, frame = cap.read()
 
-    def image_detector(self, imname, wait=0):
+    def image_detector(self, imname,classes=[],wait=0):
         detect_timer = Timer()
         self.image = cv2.imread(imname)
 
         detect_timer.tic()
-        self.result = self.detect(self.image)
+        self.result = self.detect(self.image,classes)
         detect_timer.toc()
         print('Average detecting time: {:.3f}s'.format(
             detect_timer.average_time))

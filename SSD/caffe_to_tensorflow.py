@@ -5,8 +5,8 @@ definition.
 """
 import tensorflow as tf
 
-from nets import caffe_scope
-from nets import nets_factory
+from SSD.nets import caffe_scope
+from SSD.nets import nets_factory
 
 slim = tf.contrib.slim
 
