@@ -23,11 +23,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 from lib.config import config as cfg
-from Faster_RCNN.lib.utils.nms_wrapper import nms
-from Faster_RCNN.lib.utils.test import im_detect
+from lib.utils.nms_wrapper import nms
+from lib.utils.test import im_detect
 #from nets.resnet_v1 import resnetv1
-from Faster_RCNN.lib.nets.vgg16 import vgg16
-from Faster_RCNN.lib.utils.timer import Timer
+from lib.nets.vgg16 import vgg16
+from lib.utils.timer import Timer
 
 CLASSES = ('__background__',
            'aeroplane', 'bicycle', 'bird', 'boat',
@@ -119,7 +119,7 @@ if __name__ == '__main__':
     # model path
     demonet = args.demo_net
     dataset = args.dataset
-    tfmodel = r'C:\Users\liuzhanqi\Downloads\Faster-RCNN-TensorFlow-Python3.5-master\output\vgg16\voc_2007_trainval+voc_2012_trainval\default\vgg16_faster_rcnn_iter_90.ckpt'
+    tfmodel = r'C:\Users\liuzhanqi\Downloads\Faster-RCNN-TensorFlow-Python3.5-master\default\voc_2007_trainval\default\vgg16_faster_rcnn_iter_90.ckpt'
 
 
     if not os.path.isfile(tfmodel + ".meta"):
@@ -147,11 +147,15 @@ if __name__ == '__main__':
 
     print('Loaded network {:s}'.format(tfmodel))
 
-    im_names = ['000456.jpg', '000457.jpg', '000542.jpg', '001150.jpg',
-                '001763.jpg', '004545.jpg']
+    #im_names = ['000456.jpg', '000457.jpg', '000542.jpg', '001150.jpg',
+      #          '001763.jpg', '004545.jpg']
+    im_names = os.listdir(cfg.FLAGS2["data_dir"] + '/demo')  # 测试图片所在位置
+    print(im_names)
     for im_name in im_names:
         print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         print('Demo for data/demo/{}'.format(im_name))
         demo(sess, net, im_name)
+        plt.savefig(cfg.FLAGS2["data_dir"] + '/test_result/' + im_name, format='png', transparent=True, pad_inches=0,dpi=300, bbox_inches='tight')
 
-    plt.show()
+
+   # plt.show()
