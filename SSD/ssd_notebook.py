@@ -109,7 +109,7 @@ def dome(filename,classes):
 #     image_names = sorted(os.listdir(path))
     img = mpimg.imread(filename)
     rclasses, rscores, rbboxes = process_image(img)
-    visualization.bboxes_draw_on_img(img, rclasses, rscores, rbboxes, visualization.colors_plasma)
+    visualization.bboxes_draw_on_img(img, rclasses, rscores, rbboxes, visualization.colors_plasma,classes)
     #plt.imshow(img) # 显示图片
     #plt.show()
     im = Image.fromarray(img)

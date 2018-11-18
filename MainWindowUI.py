@@ -70,6 +70,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.comboBox.setItemText(0, _translate("MainWindow", "YOLO"))
         self.comboBox.setItemText(1, _translate("MainWindow", "MaskRCNN"))
+        self.comboBox.setItemText(1, _translate("MainWindow", "SSD"))
         self.checkBox.setText(_translate("MainWindow", "人"))
         self.checkBox_2.setText(_translate("MainWindow", "车"))
         self.checkBox_3.setText(_translate("MainWindow", "猫"))

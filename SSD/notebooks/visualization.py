@@ -65,9 +65,11 @@ def draw_bbox(img, bbox, shape, label, color=[255, 0, 0], thickness=2):
     cv2.putText(img, str(label), p1[::-1], cv2.FONT_HERSHEY_DUPLEX, 0.5, color, 1)
 
 
-def bboxes_draw_on_img(img, classes, scores, bboxes, colors, thickness=2):
+def bboxes_draw_on_img(img, classes, scores, bboxes, colors,classes1=[],thickness=2):
     shape = img.shape
     for i in range(bboxes.shape[0]):
+        if classes[i] not in classes1:
+            continue
         bbox = bboxes[i]
         color = colors[classes[i]]
         # Draw bounding box...

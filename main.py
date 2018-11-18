@@ -23,7 +23,7 @@ from PyQt5.QtWidgets import QFileDialog
 import argparse
 from MainWindowUI import Ui_MainWindow
 from PyQt5.QtWidgets import QMainWindow, QApplication,QGraphicsScene
-
+from SSD import ssd_notebook
 class MyApp(QMainWindow,Ui_MainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -79,6 +79,22 @@ class MyApp(QMainWindow,Ui_MainWindow):
                 self.maskRCNN.detect(self.file,self.classes)
                 scene = QGraphicsScene()
                 pixmap = QPixmap("D:\\result3.jpg")
+                scene.addPixmap(pixmap)
+                self.graphicsView_2.setScene(scene)
+            elif self.comboBox.currentText() =="SSD":
+                classes1=[]
+                for item in self.classes:
+                    if(item=='person'):
+                        classes1.append(15)
+                    elif(item=='dog'):
+                        classes1.append(12)
+                    elif(item=='cat'):
+                        classes1.append(8)
+                    elif(item=='car'):
+                        classes1.append(7)
+                ssd_notebook.dome(self.file,classes1)
+                scene = QGraphicsScene()
+                pixmap = QPixmap("D:\\result2.jpg")
                 scene.addPixmap(pixmap)
                 self.graphicsView_2.setScene(scene)
 if __name__ == "__main__":
