@@ -12,12 +12,12 @@ import tensorflow as tf
 import tensorflow.contrib.slim as slim
 from tensorflow.contrib.slim import arg_scope
 
-from lib.config import config as cfg
-from lib.layer_utils.anchor_target_layer import anchor_target_layer
-from lib.layer_utils.proposal_layer import proposal_layer
-from lib.layer_utils.proposal_target_layer import proposal_target_layer
-from lib.layer_utils.proposal_top_layer import proposal_top_layer
-from lib.layer_utils.snippets import generate_anchors_pre
+from Faster_RCNN.lib.config import config as cfg
+from Faster_RCNN.lib.layer_utils.anchor_target_layer import anchor_target_layer
+from Faster_RCNN.lib.layer_utils.proposal_layer import proposal_layer
+from Faster_RCNN.lib.layer_utils.proposal_target_layer import proposal_target_layer
+from Faster_RCNN.lib.layer_utils.proposal_top_layer import proposal_top_layer
+from Faster_RCNN.lib.layer_utils.snippets import generate_anchors_pre
 
 
 class Network(object):

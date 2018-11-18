@@ -16,15 +16,15 @@ except ImportError:
     import pickle
 import os
 
-from lib.utils.timer import Timer
+from Faster_RCNN.lib.utils.timer import Timer
 # from utils.cython_nms import nms, nms_new
-from lib.utils.py_cpu_nms import py_cpu_nms as nms
-from lib.utils.blob import im_list_to_blob
+from Faster_RCNN.lib.utils.py_cpu_nms import py_cpu_nms as nms
+from Faster_RCNN.lib.utils.blob import im_list_to_blob
 
 # from model.config import cfg, get_output_dir
-from lib.config.config import get_output_dir
-from lib.config import config as cfg
-from lib.utils.bbox_transform import bbox_transform_inv
+from Faster_RCNN.lib.config.config import get_output_dir
+from Faster_RCNN.lib.config import config as cfg
+from Faster_RCNN.lib.utils.bbox_transform import bbox_transform_inv
 
 
 def _get_image_blob(im):

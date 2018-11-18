@@ -22,12 +22,12 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
-from lib.config import config as cfg
-from lib.utils.nms_wrapper import nms
-from lib.utils.test import im_detect
+from Faster_RCNN.lib.config import config as cfg
+from Faster_RCNN.lib.utils.nms_wrapper import nms
+from Faster_RCNN.lib.utils.test import im_detect
 #from nets.resnet_v1 import resnetv1
-from lib.nets.vgg16 import vgg16
-from lib.utils.timer import Timer
+from Faster_RCNN.lib.nets.vgg16 import vgg16
+from Faster_RCNN.lib.utils.timer import Timer
 
 CLASSES = ('__background__',
            'aeroplane', 'bicycle', 'bird', 'boat',
@@ -115,13 +115,13 @@ def parse_args():
 
 if __name__ == '__main__':
     args = parse_args()
-
     # model path
     demonet = args.demo_net
     dataset = args.dataset
-    tfmodel = r'C:\Users\liuzhanqi\Downloads\Faster-RCNN-TensorFlow-Python3.5-master\default\voc_2007_trainval\default\vgg16_faster_rcnn_iter_90.ckpt'
-
-
+    ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
+    MODULE_DIR = os.path.join(ROOT_DIR, "default")
+    MODULE_DIR =os.path.join(ROOT_DIR, "voc_2007_trainval")
+    tfmodel = os.path.join(ROOT_DIR, "vgg16_faster_rcnn_iter_90.ckpt")
     if not os.path.isfile(tfmodel + ".meta"):
         print(tfmodel)
         raise IOError(('{:s} not found.\nDid you download the proper networks from '

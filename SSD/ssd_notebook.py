@@ -24,9 +24,9 @@ sys.path.append('./')
 
 # In[4]:
 
-from nets import ssd_vgg_300, ssd_common, np_methods
-from preprocessing import ssd_vgg_preprocessing
-from notebooks import visualization
+from SSD.nets import ssd_vgg_300, ssd_common, np_methods
+from SSD.preprocessing import ssd_vgg_preprocessing
+from SSD.notebooks import visualization
 
 # In[5]:
 
@@ -59,7 +59,9 @@ with slim.arg_scope(ssd_net.arg_scope(data_format=data_format)):
     predictions, localisations, _, _ = ssd_net.net(image_4d, is_training=False, reuse=reuse)
 
 # Restore SSD model.
-ckpt_filename = 'D:\code\SSD-Tensorflow\checkpoints\ssd_300_vgg.ckpt'
+ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
+CKPT_DIR = os.path.join(ROOT_DIR, "checkpoints")
+ckpt_filename = os.path.join(CKPT_DIR, "ssd_300_vgg.ckpt")
 # ckpt_filename = '../checkpoints/VGG_VOC0712_SSD_300x300_ft_iter_120000.ckpt'
 isess.run(tf.global_variables_initializer())
 saver = tf.train.Saver()

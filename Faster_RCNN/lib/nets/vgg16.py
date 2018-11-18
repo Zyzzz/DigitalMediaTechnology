@@ -8,8 +8,8 @@
 import tensorflow as tf
 import tensorflow.contrib.slim as slim
 
-import lib.config.config as cfg
-from lib.nets.network import Network
+import Faster_RCNN.lib.config.config as cfg
+from Faster_RCNN.lib.nets.network import Network
 
 class vgg16(Network):
     def __init__(self, batch_size=1):
