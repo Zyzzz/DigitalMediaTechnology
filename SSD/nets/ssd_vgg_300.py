@@ -54,9 +54,9 @@ from collections import namedtuple
 import numpy as np
 import tensorflow as tf
 
-import tf_extended as tfe
-from nets import custom_layers
-from nets import ssd_common
+from SSD import tf_extended as tfe
+from SSD.nets import custom_layers
+from SSD.nets import ssd_common
 
 slim = tf.contrib.slim
 

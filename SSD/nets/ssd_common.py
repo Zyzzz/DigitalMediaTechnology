@@ -16,7 +16,7 @@
 """
 import numpy as np
 import tensorflow as tf
-import tf_extended as tfe
+import SSD.tf_extended as tfe
 
 
 # =========================================================================== #

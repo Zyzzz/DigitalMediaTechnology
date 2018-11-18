@@ -18,12 +18,12 @@ from enum import Enum, IntEnum
 import numpy as np
 
 import tensorflow as tf
-import tf_extended as tfe
+import SSD.tf_extended as tfe
 
 from tensorflow.python.ops import control_flow_ops
 
-from preprocessing import tf_image
-from nets import ssd_common
+from SSD.preprocessing import tf_image
+from SSD.nets import ssd_common
 
 slim = tf.contrib.slim
 
