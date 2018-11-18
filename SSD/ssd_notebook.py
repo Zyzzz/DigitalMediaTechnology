@@ -102,15 +102,15 @@ def process_image(img, select_threshold=0.5, nms_threshold=.45, net_shape=(300, 
 
 
 # In[21]:
-
+def dome(filename,classes):
 # Test on some demo image and visualize output.
-path = 'D:\code\SSD-Tensorflow\demo/'
-image_names = sorted(os.listdir(path))
-
-img = mpimg.imread(path+image_names[-1])
-rclasses, rscores, rbboxes = process_image(img)
-visualization.bboxes_draw_on_img(img, rclasses, rscores, rbboxes, visualization.colors_plasma)
-plt.imshow(img) # 显示图片
-plt.show()
-im = Image.fromarray(img)
-im.save(image_names[-1])
+#     ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
+#     path = os.path.join(ROOT_DIR, "demo")
+#     image_names = sorted(os.listdir(path))
+    img = mpimg.imread(filename)
+    rclasses, rscores, rbboxes = process_image(img)
+    visualization.bboxes_draw_on_img(img, rclasses, rscores, rbboxes, visualization.colors_plasma)
+    #plt.imshow(img) # 显示图片
+    #plt.show()
+    im = Image.fromarray(img)
+    im.save('D:\\result2.jpg')

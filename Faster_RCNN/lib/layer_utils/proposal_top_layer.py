@@ -10,8 +10,8 @@ from __future__ import print_function
 import numpy as np
 import numpy.random as npr
 
-from lib.config import config as cfg
-from lib.utils.bbox_transform import bbox_transform_inv, clip_boxes
+from Faster_RCNN.lib.config import config as cfg
+from Faster_RCNN.lib.utils.bbox_transform import bbox_transform_inv, clip_boxes
 
 
 def proposal_top_layer(rpn_cls_prob, rpn_bbox_pred, im_info, _feat_stride, anchors, num_anchors):

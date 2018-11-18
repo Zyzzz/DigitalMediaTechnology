@@ -10,10 +10,10 @@ from __future__ import print_function
 
 import numpy as np
 import numpy.random as npr
-from lib.utils.cython_bbox import bbox_overlaps
+from Faster_RCNN.lib.utils.cython_bbox import bbox_overlaps
 
-from lib.config import config as cfg
-from lib.utils.bbox_transform import bbox_transform
+from Faster_RCNN.lib.config import config as cfg
+from Faster_RCNN.lib.utils.bbox_transform import bbox_transform
 
 
 def proposal_target_layer(rpn_rois, rpn_scores, gt_boxes, _num_classes):

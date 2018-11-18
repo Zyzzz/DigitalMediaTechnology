@@ -113,15 +113,16 @@ def parse_args():
     return args
 
 
-if __name__ == '__main__':
+def deomd(im_file):
     args = parse_args()
     # model path
     demonet = args.demo_net
     dataset = args.dataset
     ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
     MODULE_DIR = os.path.join(ROOT_DIR, "default")
-    MODULE_DIR =os.path.join(ROOT_DIR, "voc_2007_trainval")
-    tfmodel = os.path.join(ROOT_DIR, "vgg16_faster_rcnn_iter_90.ckpt")
+    MODULE_DIR =os.path.join(MODULE_DIR, "voc_2007_trainval")
+    MODULE_DIR = os.path.join(MODULE_DIR, "default")
+    tfmodel = os.path.join(MODULE_DIR, "vgg16_faster_rcnn_iter_90.ckpt")
     if not os.path.isfile(tfmodel + ".meta"):
         print(tfmodel)
         raise IOError(('{:s} not found.\nDid you download the proper networks from '
@@ -144,18 +145,14 @@ if __name__ == '__main__':
                             tag='default', anchor_scales=[8, 16, 32])
     saver = tf.train.Saver()
     saver.restore(sess, tfmodel)
-
     print('Loaded network {:s}'.format(tfmodel))
-
     #im_names = ['000456.jpg', '000457.jpg', '000542.jpg', '001150.jpg',
       #          '001763.jpg', '004545.jpg']
-    im_names = os.listdir(cfg.FLAGS2["data_dir"] + '/demo')  # 测试图片所在位置
-    print(im_names)
-    for im_name in im_names:
-        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-        print('Demo for data/demo/{}'.format(im_name))
-        demo(sess, net, im_name)
-        plt.savefig(cfg.FLAGS2["data_dir"] + '/test_result/' + im_name, format='png', transparent=True, pad_inches=0,dpi=300, bbox_inches='tight')
+    im_file= 'I:/yolo_tensorflow/test/person.jpg'
+    img = cv2.imread(im_file)
+    cv2.imshow("imge.jpg",img)
+    demo(sess, net, im_file)
+    plt.savefig(cfg.FLAGS2["data_dir"] + '/test_result/' + 'result.jpg', format='png', transparent=True, pad_inches=0,dpi=300, bbox_inches='tight')
+    plt.show()
 
-
-   # plt.show()
+deomd('I:/yolo_tensorflow/test/person.jpg')
