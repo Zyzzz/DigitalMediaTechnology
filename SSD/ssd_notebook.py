@@ -114,3 +114,4 @@ def dome(filename,classes):
     #plt.show()
     im = Image.fromarray(img)
     im.save('D:\\result2.jpg')
+dome('I:/yolo_tensorflow/test/person.jpg',[15])
