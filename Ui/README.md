@@ -1,0 +1,2 @@
+﻿基本完成UI
+需要进行绑定的界面类在Ui\Libraries\Widgets的MainWindowUi.py中
