@@ -15,10 +15,10 @@ from PyQt5.QtCore import QTimer, pyqtProperty, QRectF, Qt, QEvent, QRect
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QPushButton, QGraphicsDropShadowEffect, QWidget,\
     QStylePainter, QStyleOptionButton, QStyle, QApplication
-import config
+import Ui.config
 
-from Libraries.Widgets.ToolTipWidget import ToolTipWidget
-from Libraries.Widgets.ContentWidget import ContentWidget
+from Ui.Libraries.Widgets.ToolTipWidget import ToolTipWidget
+from Ui.Libraries.Widgets.ContentWidget import ContentWidget
 
 __Author__ = "By: Irony.\"[讽刺]\nQQ: 892768447\nEmail: 892768447@qq.com"
 __Copyright__ = "Copyright (c) 2018 Irony.\"[讽刺]"

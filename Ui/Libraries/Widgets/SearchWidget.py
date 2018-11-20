@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import QLineEdit, QWidget, QHBoxLayout,QLabel,QListWidget,Q
 from PyQt5.QtGui import QIcon
 from random import randint
 
-from Libraries.Widgets.RubberBandButton import RubberBandButton
+from Ui.Libraries.Widgets.RubberBandButton import RubberBandButton
 
 
 __Author__ = "By: Irony.\"[讽刺]\nQQ: 892768447\nEmail: 892768447@qq.com"

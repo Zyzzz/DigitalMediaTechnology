@@ -64,7 +64,7 @@ AvatarWidget {
     qproperty-padding: 10;
     background: transparent;
     qproperty-shadowColor: #212121;
-    qproperty-image: "themes/default/images/avatar.jpg";
+    qproperty-image: "Ui/themes/default/images/avatar.jpg";
 }
 
 /*搜索框区域*/

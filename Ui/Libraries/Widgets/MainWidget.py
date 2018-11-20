@@ -13,14 +13,14 @@ from PyQt5 import  QtGui, QtWidgets, QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-import config
+from Ui import config
 
-from Libraries.Widgets.ContentWidget import ContentWidget
-from Libraries.Widgets.FramelessWindow import FramelessWindow
-from Libraries.Widgets.LinkWidget import LinkWidget
-from Libraries.Widgets.MenuWidget import MenuWidget
-from Libraries.Widgets.TitleWidget import TitleWidget
-from Libraries.Widgets.ToolTipWidget import ToolTipWidget
+from Ui.Libraries.Widgets.ContentWidget import ContentWidget
+from Ui.Libraries.Widgets.FramelessWindow import FramelessWindow
+from Ui.Libraries.Widgets.LinkWidget import LinkWidget
+from Ui.Libraries.Widgets.MenuWidget import MenuWidget
+from Ui.Libraries.Widgets.TitleWidget import TitleWidget
+from Ui.Libraries.Widgets.ToolTipWidget import ToolTipWidget
 
 class MainWidget(QWidget):
 

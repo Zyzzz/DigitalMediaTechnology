@@ -10,9 +10,12 @@ from utils.timer import Timer
 
 class Detector(object):
 
-    def __init__(self, net, weight_file):
+    def __init__(self, net):
         self.net = net
-        self.weights_file = weight_file
+        ROOT_Dir = os.path.abspath('.')
+        data_dir = os.path.join(ROOT_Dir,'data')
+        wight_dir = os.path.join(data_dir, 'weights')
+        self.weights_file = os.path.join(wight_dir, 'YOLO_small.ckpt')
 
         self.classes = cfg.CLASSES
         self.num_class = len(self.classes)

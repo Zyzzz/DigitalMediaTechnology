@@ -9,7 +9,7 @@ from PIL import Image
 import numpy as np
 import tensorflow as tf
 import cv2
-
+import keras.backend as K
 slim = tf.contrib.slim
 
 # In[2]:
@@ -87,7 +87,9 @@ def process_image(img, select_threshold=0.5, nms_threshold=.45, net_shape=(300, 
     # Run SSD network.
     rimg, rpredictions, rlocalisations, rbbox_img = isess.run([image_4d, predictions, localisations, bbox_img],
                                                               feed_dict={img_input: img})
-
+    isess.close()
+    K.clear_session()
+    tf.reset_default_graph()
     # Get classes and bboxes from the net outputs.
     rclasses, rscores, rbboxes = np_methods.ssd_bboxes_select(
         rpredictions, rlocalisations, ssd_anchors,
@@ -98,8 +100,7 @@ def process_image(img, select_threshold=0.5, nms_threshold=.45, net_shape=(300, 
     rclasses, rscores, rbboxes = np_methods.bboxes_nms(rclasses, rscores, rbboxes, nms_threshold=nms_threshold)
     # Resize bboxes to original image shape. Note: useless for Resize.WARP!
     rbboxes = np_methods.bboxes_resize(rbbox_img, rbboxes)
-    tf.reset_default_graph()
-    #isess.reset_default_graph()
+
     return rclasses, rscores, rbboxes
 
 

@@ -13,8 +13,8 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QSpacerItem, QSizePolicy, QTreeWidget,\
     QVBoxLayout, QHBoxLayout
 
-from Libraries.Widgets.AvatarWidget import AvatarWidget
-from Libraries.Widgets.SearchWidget import SearchWidget
+from Ui.Libraries.Widgets.AvatarWidget import AvatarWidget
+from Ui.Libraries.Widgets.SearchWidget import SearchWidget
 
 
 __Author__ = "By: Irony.\"[讽刺]\nQQ: 892768447\nEmail: 892768447@qq.com"
