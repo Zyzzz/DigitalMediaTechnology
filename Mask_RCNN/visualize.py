@@ -145,7 +145,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             ax.add_patch(p)
     ax.imshow(masked_image.astype(np.uint8))
     #cv2.imwrite("D:\\result.jpg",masked_image.astype(np.uint8))
-    plt.savefig("D:\\result3.jpg")
+    plt.savefig("D:\\result2.jpg")
 
     
 

@@ -117,6 +117,7 @@ class ContentWidget(QWidget,MainWindowUi.Ui_MainWindow):
                 pixmap = QPixmap("D:\\result3.jpg")
                 self.image2.setPixmap(pixmap)
                 self.image2.setScaledContents(True)
+        self.classes.clear()
 
 if __name__ == "__main__":
     import sys
