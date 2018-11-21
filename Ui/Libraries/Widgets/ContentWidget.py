@@ -22,7 +22,7 @@ from Mask_RCNN import demo
 from Yolotest import Detector
 from yolo.yolo_net import YOLONet
 import threading
-
+from Faster_RCNN import test
 __Author__ = "By: Irony.\"[讽刺]\nQQ: 892768447\nEmail: 892768447@qq.com"
 __Copyright__ = "Copyright (c) 2018 Irony.\"[讽刺]"
 __Version__ = "Version 1.0"
@@ -113,8 +113,12 @@ class ContentWidget(QWidget,MainWindowUi.Ui_MainWindow):
                     elif(item=='car'):
                         classes1.append(7)
                 ssd_notebook.dome(self.file,classes1)
-                scene = QGraphicsScene()
                 pixmap = QPixmap("D:\\result3.jpg")
+                self.image2.setPixmap(pixmap)
+                self.image2.setScaledContents(True)
+            elif self.comboBox.currentText() =="FasterRCNN":
+                test.dectect(self.file,self.classes)
+                pixmap = QPixmap("D:\\result4.png")
                 self.image2.setPixmap(pixmap)
                 self.image2.setScaledContents(True)
         self.classes.clear()
