@@ -127,11 +127,9 @@ def display_instances(image, boxes, masks, class_ids, class_names,
         caption = "{} {:.3f}".format(label, score) if score else label
         ax.text(x1, y1 + 8, caption,
                 color='w', size=11, backgroundcolor="none")
-
         # Mask
         mask = masks[:, :, i]
         masked_image = apply_mask(masked_image, mask, color)
-
         # Mask Polygon
         # Pad to ensure proper polygons for masks that touch image edges.
         padded_mask = np.zeros(
@@ -144,10 +142,13 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             p = Polygon(verts, facecolor="none", edgecolor=color)
             ax.add_patch(p)
     ax.imshow(masked_image.astype(np.uint8))
-    #cv2.imwrite("D:\\result.jpg",masked_image.astype(np.uint8))
-    plt.savefig("D:\\result2.jpg")
+    fig = plt.gcf()
+    plt.axis('off')
+    plt.gca().xaxis.set_major_locator(plt.NullLocator())
+    plt.gca().yaxis.set_major_locator(plt.NullLocator())
+    plt.subplots_adjust(top=1, bottom=0, right=1, left=0, hspace=0, wspace=0)
+    fig.savefig("D:\\result2.jpg",bbox_inches = 'tight', pad_inches = 0)
 
-    
 
 def draw_rois(image, rois, refined_rois, mask, class_ids, class_names, limit=10):
     """
