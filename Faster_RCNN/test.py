@@ -158,4 +158,4 @@ def dectect(im_file,classes):
     plt.savefig('D:\\result4.png', format='png', transparent=True, pad_inches=0,dpi=300, bbox_inches='tight')
     #plt.show()
 
-#deomd('I:/yolo_tensorflow/test/person.jpg')
+#dectect('I:/yolo_tensorflow/test/person.jpg')
