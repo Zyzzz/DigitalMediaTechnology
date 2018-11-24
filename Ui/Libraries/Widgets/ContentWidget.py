@@ -47,13 +47,13 @@ class ContentWidget(QWidget,MainWindowUi.Ui_MainWindow):
         layout.addWidget(self.stackedWidget)
         MainWindow = QMainWindow()
         self.setupUi(MainWindow)
-        MainWindow.setStyleSheet(open("themes/default/style.qss",
+        MainWindow.setStyleSheet(open("Ui/themes/default/style.qss",
                                 "rb").read().decode("utf-8"))
         self.stackedWidget.addWidget(MainWindow)
         SubWindow = QMainWindow()
         ui = subPage.Ui_MainWindow()
         ui.setupUi(SubWindow)
-        SubWindow.setStyleSheet(open("themes/default/style.qss",
+        SubWindow.setStyleSheet(open("Ui/themes/default/style.qss",
                                 "rb").read().decode("utf-8"))
         self.stackedWidget.addWidget(SubWindow)
 
