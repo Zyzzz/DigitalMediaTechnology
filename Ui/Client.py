@@ -10,12 +10,12 @@ Created on 2018年2月6日
 @description: 
 '''
 import sys
-import config
+import Ui.config
 
 from PyQt5.QtGui import QFontDatabase
 from PyQt5.QtWidgets import QApplication
 
-from Libraries.Widgets.MainWidget import MainWindow
+from Ui.Libraries.Widgets.MainWidget import MainWindow
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
