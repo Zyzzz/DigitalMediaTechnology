@@ -143,10 +143,9 @@ class LinkButton(QPushButton):
             # config.set_page(1)
             stackWidget.setCurrentIndex(0)
         elif self.objectName() == "groupButton2":
-            print("2")
-            stackWidget.setCurrentIndex(4)
+            stackWidget.setCurrentIndex(1)
         elif self.objectName() == "qqButton":
-            stackWidget.setCurrentIndex(2)
+            stackWidget.setCurrentIndex(3)
         # elif self.objectName() == "groupButton1":
         #     config.set_page(2)
 
