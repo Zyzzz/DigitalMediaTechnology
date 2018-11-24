@@ -7,12 +7,16 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QFileDialog
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(824, 613)
         MainWindow.setStyleSheet("")
+        self.MainWindow = MainWindow
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("background-color:#d0e9c6;")
         self.centralwidget.setObjectName("centralwidget")
@@ -177,8 +181,6 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionopen_files)
         self.menubar.addAction(self.menuFile.menuAction())
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
