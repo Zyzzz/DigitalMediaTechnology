@@ -1,15 +1,6 @@
 # !/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-"""
-Py40 PyQt5 tutorial
-
-This program creates a statusbar.
-
-author: Jan Bodnar
-website: py40.com
-last edited: January 2015
-"""
 
 import sys
 import os
