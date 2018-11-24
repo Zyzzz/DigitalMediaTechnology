@@ -16,13 +16,14 @@ from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QGraphicsScene
 from PyQt5.QtWidgets import QWidget, QProgressBar, QVBoxLayout,QLabel,QStackedWidget,QMainWindow
 from Ui.Libraries.Widgets import MainWindowUi
+from Ui.Libraries.Widgets import subPage
 import argparse
 from SSD import ssd_notebook
 from Mask_RCNN import demo
 from Yolotest import Detector
 from yolo.yolo_net import YOLONet
 import threading
-from Faster_RCNN import test
+# from Faster_RCNN import test
 __Author__ = "By: Irony.\"[讽刺]\nQQ: 892768447\nEmail: 892768447@qq.com"
 __Copyright__ = "Copyright (c) 2018 Irony.\"[讽刺]"
 __Version__ = "Version 1.0"
@@ -49,6 +50,13 @@ class ContentWidget(QWidget,MainWindowUi.Ui_MainWindow):
         MainWindow.setStyleSheet(open("Ui/themes/default/style.qss",
                                 "rb").read().decode("utf-8"))
         self.stackedWidget.addWidget(MainWindow)
+        SubWindow = QMainWindow()
+        ui = subPage.Ui_MainWindow()
+        ui.setupUi(SubWindow)
+        SubWindow.setStyleSheet(open("Ui/themes/default/style.qss",
+                                "rb").read().decode("utf-8"))
+        self.stackedWidget.addWidget(SubWindow)
+
         self.actionOpen_File.triggered.connect(self.openMsg)
         self.pushButton.clicked.connect(self.oncle)
         # for i in range(3):
@@ -117,7 +125,7 @@ class ContentWidget(QWidget,MainWindowUi.Ui_MainWindow):
                 self.image2.setPixmap(pixmap)
                 self.image2.setScaledContents(True)
             elif self.comboBox.currentText() =="FasterRCNN":
-                test.dectect(self.file,self.classes)
+                # test.dectect(self.file,self.classes)
                 pixmap = QPixmap("D:\\result4.png")
                 self.image2.setPixmap(pixmap)
                 self.image2.setScaledContents(True)
