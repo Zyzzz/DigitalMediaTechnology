@@ -175,15 +175,9 @@ class Detector(object):
             ret, frame = cap.read()
 
     def image_detector(self, imname,classes=[],wait=0):
-        detect_timer = Timer()
+
         self.image = cv2.imread(imname)
-
-        detect_timer.tic()
         self.result = self.detect(self.image,classes)
-        detect_timer.toc()
-        print('Average detecting time: {:.3f}s'.format(
-            detect_timer.average_time))
-
         self.draw_result(self.image, self.result)
         cv2.imwrite("D:\\result.jpg", self.image)
 
