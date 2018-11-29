@@ -42,6 +42,7 @@ class SubWindows(QMainWindow,Ui_MainWindow):
             yolo = YOLONet(False)
             detector = Detector(yolo)
             imname = self.file
+
             detect_timer.tic()
             detector.image_detector(imname,classesall)
             self.yoloTime.setText(_translate("MainWindow", str(detect_timer.toc())+'s'))
