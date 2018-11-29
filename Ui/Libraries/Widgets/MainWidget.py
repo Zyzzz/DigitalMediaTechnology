@@ -153,7 +153,7 @@ class MainWindow(FramelessWindow):
 
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
-        self.resize(1200, 600)
+        self.resize(1600, 900)
         layout = QVBoxLayout(self, spacing=0)
         layout.setContentsMargins(0, 0, 0, 0)
         self._mainWidget = MainWidget(self)
