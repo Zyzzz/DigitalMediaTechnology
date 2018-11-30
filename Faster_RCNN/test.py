@@ -47,12 +47,13 @@ def vis_detections(im, class_name, dets,classes,thresh=0.5):
     im = im[:, :, (2, 1, 0)]
     fig, ax = plt.subplots(figsize=(12, 12))
     ax.imshow(im, aspect='equal')
+    str=''
     for i in inds:
         if class_name not in classes:
             continue
         bbox = dets[i, :4]
         score = dets[i, -1]
-
+        str+=class_name+':'+str(score)+' '
         ax.add_patch(
             plt.Rectangle((bbox[0], bbox[1]),
                           bbox[2] - bbox[0],
@@ -71,7 +72,7 @@ def vis_detections(im, class_name, dets,classes,thresh=0.5):
     plt.axis('off')
     plt.tight_layout()
     plt.draw()
-
+    return str
 
 def demo(sess, net, image_name,classes):
     """Detect object classes in an image using pre-computed object proposals."""
@@ -85,6 +86,7 @@ def demo(sess, net, image_name,classes):
     # Visualize detections for each class
     CONF_THRESH = 0.1
     NMS_THRESH = 0.1
+    str=''
     for cls_ind, cls in enumerate(CLASSES[1:]):
         cls_ind += 1  # because we skipped background
         cls_boxes = boxes[:, 4 * cls_ind:4 * (cls_ind + 1)]
@@ -93,8 +95,8 @@ def demo(sess, net, image_name,classes):
                           cls_scores[:, np.newaxis])).astype(np.float32)
         keep = nms(dets, NMS_THRESH)
         dets = dets[keep, :]
-        vis_detections(im, cls, dets, classes,thresh=CONF_THRESH)
-
+        str+=vis_detections(im, cls, dets, classes,thresh=CONF_THRESH)
+    return str
 
 def parse_args():
     """Parse input arguments."""
@@ -146,8 +148,9 @@ def dectect(filename,claesses):
       #          '001763.jpg', '004545.jpg']
 
 
-    demo(sess, net, filename,claesses)
-    plt.savefig(r'D:\result4.jpg', format='png', transparent=True, pad_inches=0,dpi=300, bbox_inches='tight')
+    str = demo(sess, net, filename,claesses)
+    plt.savefig(r'D:\result4.png', format='png', transparent=True, pad_inches=0,dpi=300, bbox_inches='tight')
     #plt.show()
+    return str
 
 #dectect(r'I:\yolo_tensorflow\test\person.jpg',["person"])

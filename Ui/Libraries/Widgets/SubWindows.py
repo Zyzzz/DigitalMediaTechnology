@@ -12,6 +12,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QFileDialog
 import argparse
 from Ui.Libraries.Widgets.subPage import Ui_MainWindow
+from Faster_RCNN import test
 from PyQt5.QtWidgets import QMainWindow, QApplication,QGraphicsScene
 from SSD import ssd_notebook
 class SubWindows(QMainWindow,Ui_MainWindow):
@@ -66,7 +67,10 @@ class SubWindows(QMainWindow,Ui_MainWindow):
             self.SSD_result.setPixmap(pixmap)
             self.SSD_result.setScaledContents(True)
 
-            # test.dectect(self.file,self.classes)
-            # pixmap = QPixmap("D:\\result4.png")
-            # self.image2.setPixmap(pixmap)
-            # self.image2.setScaledContents(True)
+            detect_timer.tic()
+            fasterrcnnresult=test.dectect(self.file,self.classes)
+            fasterTime=detect_timer.toc()
+            self.fasterTime.setText(_translate("MainWindow", str(fasterTime) + 's'))
+            pixmap = QPixmap("D:\\result4.png")
+            self.Faster_result.setPixmap(pixmap)
+            self.Faster_result.setScaledContents(True)
