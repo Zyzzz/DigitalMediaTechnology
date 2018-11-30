@@ -349,6 +349,7 @@ class Network(object):
                                                          self._predictions['bbox_pred'],
                                                          self._predictions['rois']],
                                                         feed_dict=feed_dict)
+        tf.reset_default_graph()
         return cls_score, cls_prob, bbox_pred, rois
 
     def get_summary(self, sess, blobs):

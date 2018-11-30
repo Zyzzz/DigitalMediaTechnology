@@ -11,6 +11,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QFileDialog
 import argparse
 from Ui.Libraries.Widgets.MainWindowUi import Ui_MainWindow
+from Faster_RCNN import test
 from PyQt5.QtWidgets import QMainWindow, QApplication,QGraphicsScene
 from SSD import ssd_notebook
 class MainWindows(QMainWindow,Ui_MainWindow):
@@ -78,7 +79,7 @@ class MainWindows(QMainWindow,Ui_MainWindow):
                 self.image2.setPixmap(pixmap)
                 self.image2.setScaledContents(True)
             elif self.comboBox.currentText() =="FasterRCNN":
-                # test.dectect(self.file,self.classes)
+                test.dectect(self.file,self.classes)
                 pixmap = QPixmap("D:\\result4.png")
                 self.image2.setPixmap(pixmap)
                 self.image2.setScaledContents(True)

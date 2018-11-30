@@ -27,7 +27,6 @@ from Faster_RCNN.lib.utils.nms_wrapper import nms
 from Faster_RCNN.lib.utils.test import im_detect
 #from nets.resnet_v1 import resnetv1
 from Faster_RCNN.lib.nets.vgg16 import vgg16
-from Faster_RCNN.lib.utils.timer import Timer
 
 CLASSES = ('__background__',
            'aeroplane', 'bicycle', 'bird', 'boat',
@@ -40,17 +39,17 @@ NETS = {'vgg16': ('vgg16.ckpt',), 'res101': ('res101_faster_rcnn_iter_110000.ckp
 DATASETS = {'pascal_voc': ('voc_2007_trainval',), 'pascal_voc_0712': ('voc_2007_trainval+voc_2012_trainval',)}
 
 
-def vis_detections(im, class_name, dets,thresh=0.5):
+def vis_detections(im, class_name, dets,classes,thresh=0.5):
     """Draw detected bounding boxes."""
     inds = np.where(dets[:, -1] >= thresh)[0]
     if len(inds) == 0:
         return
-
-
     im = im[:, :, (2, 1, 0)]
     fig, ax = plt.subplots(figsize=(12, 12))
     ax.imshow(im, aspect='equal')
     for i in inds:
+        if class_name not in classes:
+            continue
         bbox = dets[i, :4]
         score = dets[i, -1]
 
@@ -74,26 +73,19 @@ def vis_detections(im, class_name, dets,thresh=0.5):
     plt.draw()
 
 
-def demo(sess, net, image_name,classes=[]):
+def demo(sess, net, image_name,classes):
     """Detect object classes in an image using pre-computed object proposals."""
 
     # Load the demo image
-    im_file = os.path.join(cfg.FLAGS2["data_dir"], 'demo', image_name)
+    im_file = image_name
     im = cv2.imread(im_file)
 
     # Detect all object classes and regress object bounds
-    timer = Timer()
-    timer.tic()
     scores, boxes = im_detect(sess, net, im)
-    timer.toc()
-    print('Detection took {:.3f}s for {:d} object proposals'.format(timer.total_time, boxes.shape[0]))
-
     # Visualize detections for each class
     CONF_THRESH = 0.1
     NMS_THRESH = 0.1
     for cls_ind, cls in enumerate(CLASSES[1:]):
-        if cls not in classes:
-            continue
         cls_ind += 1  # because we skipped background
         cls_boxes = boxes[:, 4 * cls_ind:4 * (cls_ind + 1)]
         cls_scores = scores[:, cls_ind]
@@ -101,7 +93,7 @@ def demo(sess, net, image_name,classes=[]):
                           cls_scores[:, np.newaxis])).astype(np.float32)
         keep = nms(dets, NMS_THRESH)
         dets = dets[keep, :]
-        vis_detections(im, cls, dets, thresh=CONF_THRESH)
+        vis_detections(im, cls, dets, classes,thresh=CONF_THRESH)
 
 
 def parse_args():
@@ -116,16 +108,15 @@ def parse_args():
     return args
 
 
-def dectect(im_file,classes):
+def dectect(filename,claesses):
     args = parse_args()
+
     # model path
     demonet = args.demo_net
     dataset = args.dataset
-    ROOT_DIR = os.path.dirname(os.path.realpath(__file__))
-    MODULE_DIR = os.path.join(ROOT_DIR, "default")
-    MODULE_DIR =os.path.join(MODULE_DIR, "voc_2007_trainval")
-    MODULE_DIR = os.path.join(MODULE_DIR, "default")
-    tfmodel = os.path.join(MODULE_DIR, "vgg16_faster_rcnn_iter_90.ckpt")
+    tfmodel = r'C:\Users\Administrator\PycharmProjects\GUITest\Faster_RCNN\default\voc_2007_trainval\default\vgg16_faster_rcnn_iter_90.ckpt'
+
+
     if not os.path.isfile(tfmodel + ".meta"):
         print(tfmodel)
         raise IOError(('{:s} not found.\nDid you download the proper networks from '
@@ -148,14 +139,15 @@ def dectect(im_file,classes):
                             tag='default', anchor_scales=[8, 16, 32])
     saver = tf.train.Saver()
     saver.restore(sess, tfmodel)
+
     print('Loaded network {:s}'.format(tfmodel))
+
     #im_names = ['000456.jpg', '000457.jpg', '000542.jpg', '001150.jpg',
       #          '001763.jpg', '004545.jpg']
-    #im_file= 'I:/yolo_tensorflow/test/person.jpg'
-    #img = cv2.imread(im_file)
-    #cv2.imshow("imge.jpg",img)
-    demo(sess, net, im_file,classes)
-    plt.savefig('D:\\result4.png', format='png', transparent=True, pad_inches=0,dpi=300, bbox_inches='tight')
+
+
+    demo(sess, net, filename,claesses)
+    plt.savefig(r'D:\result4.jpg', format='png', transparent=True, pad_inches=0,dpi=300, bbox_inches='tight')
     #plt.show()
 
-#dectect('I:/yolo_tensorflow/test/person.jpg')
+#dectect(r'I:\yolo_tensorflow\test\person.jpg',["person"])
