@@ -57,15 +57,15 @@ class Detector(object):
         inputs = (inputs / 255.0) * 2.0 - 1.0
         inputs = np.reshape(inputs, (1, self.image_size, self.image_size, 3))
 
-        result = self.detect_from_cvmat(inputs,classes)[0]
-
+        result1,strsults = self.detect_from_cvmat(inputs,classes)
+        result = result1[0]
         for i in range(len(result)):
             result[i][1] *= (1.0 * img_w / self.image_size)
             result[i][2] *= (1.0 * img_h / self.image_size)
             result[i][3] *= (1.0 * img_w / self.image_size)
             result[i][4] *= (1.0 * img_h / self.image_size)
 
-        return result
+        return result,strsults
 
     def detect_from_cvmat(self, inputs,classes=[]):
 
@@ -73,10 +73,12 @@ class Detector(object):
                                    feed_dict={self.net.images: inputs})
         tf.reset_default_graph()
         results = []
+        strsults =''
         for i in range(net_output.shape[0]):
-            results.append(self.interpret_output(net_output[i],classes))
-
-        return results
+            resultitem,strsult =  self.interpret_output(net_output[i],classes)
+            results.append(resultitem)
+            strsults+=strsult
+        return results,strsults
 
     def interpret_output(self, output,classes=[]):
         probs = np.zeros((self.cell_size, self.cell_size,
@@ -137,6 +139,7 @@ class Detector(object):
         classes_num_filtered = classes_num_filtered[filter_iou]
 
         result = []
+        strsult=''
         for i in range(len(boxes_filtered)):
             if self.classes[classes_num_filtered[i]] in classes:
                 result.append(
@@ -146,7 +149,8 @@ class Detector(object):
                     boxes_filtered[i][2],
                     boxes_filtered[i][3],
                     probs_filtered[i]])
-        return result
+                strsult=strsult+str(self.classes[classes_num_filtered[i]])+':'+str(probs_filtered[i])+' '
+        return result,strsult
 
     def iou(self, box1, box2):
         tb = min(box1[0] + 0.5 * box1[2], box2[0] + 0.5 * box2[2]) - \
@@ -177,9 +181,10 @@ class Detector(object):
     def image_detector(self, imname,classes=[],wait=0):
 
         self.image = cv2.imread(imname)
-        self.result = self.detect(self.image,classes)
+        self.result,strsults = self.detect(self.image,classes)
         self.draw_result(self.image, self.result)
         cv2.imwrite("D:\\result.jpg", self.image)
+        return strsults
 
 
 

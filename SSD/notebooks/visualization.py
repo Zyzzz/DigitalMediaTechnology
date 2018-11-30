@@ -67,9 +67,26 @@ def draw_bbox(img, bbox, shape, label, color=[255, 0, 0], thickness=2):
 
 def bboxes_draw_on_img(img, classes, scores, bboxes, colors,classes1=[],thickness=2):
     shape = img.shape
+    strsult =''
     for i in range(bboxes.shape[0]):
         if classes[i] not in classes1:
             continue
+            # if (item == 'person'):
+            #     classes1.append(15)
+            # elif (item == 'dog'):
+            #     classes1.append(12)
+            # elif (item == 'cat'):
+            #     classes1.append(8)
+            # elif (item == 'car'):
+            #     classes1.append(7)
+        if classes[i]==15:
+            strsult+='person:'+str(scores[i])+' '
+        elif 12 == classes[i]:
+            strsult += 'dog:' + str(scores[i]) + ' '
+        elif classes[i]==8:
+            strsult += 'cat:' + str(scores[i]) + ' '
+        elif classes[i]==7:
+            strsult += 'car:' + str(scores[i]) + ' '
         bbox = bboxes[i]
         color = colors[classes[i]]
         # Draw bounding box...
@@ -80,7 +97,7 @@ def bboxes_draw_on_img(img, classes, scores, bboxes, colors,classes1=[],thicknes
         s = '%s/%.3f' % (classes[i], scores[i])
         p1 = (p1[0]-5, p1[1])
         cv2.putText(img, s, p1[::-1], cv2.FONT_HERSHEY_DUPLEX, 0.4, color, 1)
-
+    return strsult
 
 # =========================================================================== #
 # Matplotlib show...

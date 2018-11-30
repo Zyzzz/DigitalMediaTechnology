@@ -113,9 +113,10 @@ def dome(filename,classes):
 #     image_names = sorted(os.listdir(path))
     img = mpimg.imread(filename)
     rclasses, rscores, rbboxes = process_image(img)
-    visualization.bboxes_draw_on_img(img, rclasses, rscores, rbboxes, visualization.colors_plasma,classes)
+    str = visualization.bboxes_draw_on_img(img, rclasses, rscores, rbboxes, visualization.colors_plasma,classes)
     #plt.imshow(img) # 显示图片
     #plt.show()
     im = Image.fromarray(img)
     im.save('D:\\result3.jpg')
 #dome('I:/yolo_tensorflow/test/person.jpg',[])
+    return str

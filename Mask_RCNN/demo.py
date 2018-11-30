@@ -130,9 +130,9 @@ class MaskRCNN():
 
         # Visualize results
         r = results[0]
-        visualize.display_instances(image, r['rois'], r['masks'], r['class_ids'],
+        strresult = visualize.display_instances(image, r['rois'], r['masks'], r['class_ids'],
                                     self.class_names,classes,r['scores'])  # 输出
-
+        return strresult
 
 
 

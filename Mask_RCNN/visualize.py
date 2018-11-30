@@ -106,6 +106,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
     ax.set_title(title)
 
     masked_image = image.astype(np.uint32).copy()
+    strresult=''
     for i in range(N):
         if class_names[class_ids[i]] not in classes:
             continue
@@ -123,6 +124,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
         class_id = class_ids[i]
         score = scores[i] if scores is not None else None
         label = class_names[class_id]
+        strresult+=label+'：'+str(score)+' '
         x = random.randint(x1, (x1 + x2) // 2)
         caption = "{} {:.3f}".format(label, score) if score else label
         ax.text(x1, y1 + 8, caption,
@@ -141,6 +143,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             verts = np.fliplr(verts) - 1
             p = Polygon(verts, facecolor="none", edgecolor=color)
             ax.add_patch(p)
+
     ax.imshow(masked_image.astype(np.uint8))
     fig = plt.gcf()
     plt.axis('off')
@@ -148,7 +151,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
     plt.gca().yaxis.set_major_locator(plt.NullLocator())
     plt.subplots_adjust(top=1, bottom=0, right=1, left=0, hspace=0, wspace=0)
     fig.savefig("D:\\result2.jpg",bbox_inches = 'tight', pad_inches = 0)
-
+    return strresult
 
 def draw_rois(image, rois, refined_rois, mask, class_ids, class_names, limit=10):
     """
