@@ -139,13 +139,12 @@ class LinkButton(QPushButton):
         # 第二个Parent() 为MainWidget ;
         stackWidget = self.parent().parent()._contentWidget.stackedWidget
         if(self.objectName() == "groupButton1"):
-            print("1")
             # config.set_page(1)
             stackWidget.setCurrentIndex(0)
         elif self.objectName() == "groupButton2":
             stackWidget.setCurrentIndex(1)
         elif self.objectName() == "qqButton":
-            stackWidget.setCurrentIndex(3)
+            stackWidget.setCurrentIndex(2)
         # elif self.objectName() == "groupButton1":
         #     config.set_page(2)
 

@@ -2,7 +2,7 @@ import sys
 import os
 
 from PyQt5.QtGui import QFontDatabase
-from qtpy import QtCore
+from PyQt5 import QtCore
 
 from Mask_RCNN import demo
 from Yolotest import Detector
