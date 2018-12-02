@@ -41,9 +41,9 @@ class MainWindows(QMainWindow,Ui_MainWindow):
             if self.checkBox_2.isChecked():
                 self.classes.append("car")
             if self.checkBox_3.isChecked():
-                self.classes.append("cat")
-            if self.checkBox_4.isChecked():
                 self.classes.append("dog")
+            if self.checkBox_4.isChecked():
+                self.classes.append("cat")
             if self.comboBox.currentText() =="YOLO":
                 yolo = YOLONet(False)
                 detector = Detector(yolo)
@@ -80,7 +80,7 @@ class MainWindows(QMainWindow,Ui_MainWindow):
                 self.image2.setScaledContents(True)
             elif self.comboBox.currentText() =="FasterRCNN":
                 test.dectect(self.file,self.classes)
-                pixmap = QPixmap("D:\\result4.png")
+                pixmap = QPixmap(r"D:\result4.jpg")
                 self.image2.setPixmap(pixmap)
                 self.image2.setScaledContents(True)
         self.classes.clear()

@@ -39,21 +39,20 @@ NETS = {'vgg16': ('vgg16.ckpt',), 'res101': ('res101_faster_rcnn_iter_110000.ckp
 DATASETS = {'pascal_voc': ('voc_2007_trainval',), 'pascal_voc_0712': ('voc_2007_trainval+voc_2012_trainval',)}
 
 
-def vis_detections(im, class_name, dets,classes,thresh=0.5):
+def vis_detections(class_name, dets,classes,ax,thresh=0.5):
     """Draw detected bounding boxes."""
     inds = np.where(dets[:, -1] >= thresh)[0]
     if len(inds) == 0:
-        return
-    im = im[:, :, (2, 1, 0)]
-    fig, ax = plt.subplots(figsize=(12, 12))
-    ax.imshow(im, aspect='equal')
-    str=''
+        return ''
+    if class_name not in classes:
+        return ''
+    str1=''
     for i in inds:
-        if class_name not in classes:
-            continue
         bbox = dets[i, :4]
         score = dets[i, -1]
-        str+=class_name+':'+str(score)+' '
+        if score<0.6:
+            continue
+        str1+=str(class_name)+':'+str(score)+' '
         ax.add_patch(
             plt.Rectangle((bbox[0], bbox[1]),
                           bbox[2] - bbox[0],
@@ -64,15 +63,10 @@ def vis_detections(im, class_name, dets,classes,thresh=0.5):
                 '{:s} {:.3f}'.format(class_name, score),
                 bbox=dict(facecolor='blue', alpha=0.5),
                 fontsize=14, color='white')
-
-    ax.set_title(('{} detections with '
-                  'p({} | box) >= {:.1f}').format(class_name, class_name,
-                                                  thresh),
-                 fontsize=14)
     plt.axis('off')
     plt.tight_layout()
     plt.draw()
-    return str
+    return str1
 
 def demo(sess, net, image_name,classes):
     """Detect object classes in an image using pre-computed object proposals."""
@@ -86,6 +80,9 @@ def demo(sess, net, image_name,classes):
     # Visualize detections for each class
     CONF_THRESH = 0.1
     NMS_THRESH = 0.1
+    fig, ax = plt.subplots(figsize=(12, 12))
+    im = im[:, :, (2, 1, 0)]
+    ax.imshow(im, aspect='equal')
     str=''
     for cls_ind, cls in enumerate(CLASSES[1:]):
         cls_ind += 1  # because we skipped background
@@ -95,7 +92,7 @@ def demo(sess, net, image_name,classes):
                           cls_scores[:, np.newaxis])).astype(np.float32)
         keep = nms(dets, NMS_THRESH)
         dets = dets[keep, :]
-        str+=vis_detections(im, cls, dets, classes,thresh=CONF_THRESH)
+        str+=vis_detections(cls, dets, classes,ax,thresh=CONF_THRESH)
     return str
 
 def parse_args():
@@ -116,7 +113,7 @@ def dectect(filename,claesses):
     # model path
     demonet = args.demo_net
     dataset = args.dataset
-    tfmodel = r'C:\Users\Administrator\PycharmProjects\GUITest\Faster_RCNN\default\voc_2007_trainval\default\vgg16_faster_rcnn_iter_90.ckpt'
+    tfmodel = r'C:\Users\Administrator\PycharmProjects\GUITest\Faster_RCNN\default\voc_2007_trainval\default\vgg16_faster_rcnn_iter_40000.ckpt'
 
 
     if not os.path.isfile(tfmodel + ".meta"):
@@ -149,8 +146,8 @@ def dectect(filename,claesses):
 
 
     str = demo(sess, net, filename,claesses)
-    plt.savefig(r'D:\result4.png', format='png', transparent=True, pad_inches=0,dpi=300, bbox_inches='tight')
+    plt.savefig(r'D:\result4.jpg', format='jpg', transparent=True, pad_inches=0,dpi=300, bbox_inches='tight')
     #plt.show()
     return str
 
-#dectect(r'I:\yolo_tensorflow\test\person.jpg',["person"])
+#print(dectect(r'I:\yolo_tensorflow\test\person.jpg',["person",'dog']))

@@ -68,9 +68,9 @@ class SubWindows(QMainWindow,Ui_MainWindow):
             self.SSD_result.setScaledContents(True)
 
             detect_timer.tic()
-            fasterrcnnresult=test.dectect(self.file,self.classes)
+            fasterrcnnresult=test.dectect(self.file,classesall)
             fasterTime=detect_timer.toc()
             self.fasterTime.setText(_translate("MainWindow", str(fasterTime) + 's'))
-            pixmap = QPixmap("D:\\result4.png")
+            pixmap = QPixmap(r"D:\result4.jpg")
             self.Faster_result.setPixmap(pixmap)
             self.Faster_result.setScaledContents(True)
