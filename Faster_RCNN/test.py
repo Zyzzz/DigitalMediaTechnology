@@ -113,7 +113,7 @@ def dectect(filename,claesses):
     # model path
     demonet = args.demo_net
     dataset = args.dataset
-    tfmodel = r'C:\Users\Administrator\PycharmProjects\GUITest\Faster_RCNN\default\voc_2007_trainval\default\vgg16_faster_rcnn_iter_40000.ckpt'
+    tfmodel = r'C:\Projects\Pycharm\DigitalMediaTechnology\Faster_RCNN\default\voc_2007_trainval\default\vgg16_faster_rcnn_iter_40000.ckpt'
 
 
     if not os.path.isfile(tfmodel + ".meta"):
