@@ -4,9 +4,7 @@
 
 import sys
 import os
-
 from PyQt5.QtGui import QFontDatabase
-
 from Mask_RCNN import demo
 from Yolotest import Detector
 from yolo.yolo_net import YOLONet
