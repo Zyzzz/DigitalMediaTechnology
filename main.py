@@ -19,6 +19,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication,QGraphicsScene
 from SSD import ssd_notebook
 from Ui.Libraries.Widgets.MainWidget import MainWindow
 
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     QFontDatabase.addApplicationFont("Ui/themes/default/font.ttf")
