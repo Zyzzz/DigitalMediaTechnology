@@ -86,7 +86,7 @@ class SubWindows(QMainWindow,Ui_MainWindow):
             self.Faster_result.setScaledContents(True)
             self.save.alt('FasterRCNN',fasterTime)
             self.save.dl(self.fileName(),'FasterRCNN',fasterrcnnresult)
-            self.save.close()
+            # self.save.close()
     def fileName(self):
         if self.file!='':
             return self.file.split('/')[len(self.file.split('/'))-1]

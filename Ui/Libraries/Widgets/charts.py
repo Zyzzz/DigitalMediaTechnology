@@ -159,7 +159,7 @@ class Ui_MainWindow(object):
 
         layout = pg.Layout(barmode='group', title="Average running time of the algorithm")
         fig = pg.Figure(data=data, layout=layout)
-        py.sign_in('templarz', 'PtKMjV9gAzINZqmQRU4T')
+        py.sign_in('UncleAntonio', 'STv3rDRsIxQrMEtM60Hc')
         py.image.save_as(fig, filename='algorithmtime.png')
 
         from IPython.display import Image

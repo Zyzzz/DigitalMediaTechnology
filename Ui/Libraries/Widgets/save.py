@@ -2,8 +2,6 @@ import pymysql
 
 class save():
     db = pymysql.connect("localhost", "root", "123456", "mysql")
-
-
     def alt(self,al,ti):
 
         cursor = self.db.cursor()
