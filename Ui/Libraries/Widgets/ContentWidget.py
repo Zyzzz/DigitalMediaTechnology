@@ -13,7 +13,7 @@ from random import randint
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QProgressBar, QVBoxLayout,QLabel,QStackedWidget,QMainWindow
 from Ui.Libraries.Widgets.SubWindows import SubWindows
-from Ui.Libraries.Widgets import charts
+from Ui.Libraries.Widgets.charts import ChartsWindow
 from Ui.Libraries.Widgets.MainQWindows import MainWindows
 # from Faster_RCNN import test
 __Author__ = "By: Irony.\"[讽刺]\nQQ: 892768447\nEmail: 892768447@qq.com"
@@ -46,9 +46,7 @@ class ContentWidget(QWidget):
                                 "rb").read().decode("utf-8"))
         self.stackedWidget.addWidget(subWindows)
 
-        chartWindow = QMainWindow()
-        ui = charts.Ui_MainWindow()
-        ui.setupUi(chartWindow)
+        chartWindow = ChartsWindow()
         chartWindow.setStyleSheet(open("Ui/themes/default/style.qss",
                                 "rb").read().decode("utf-8"))
         self.stackedWidget.addWidget(chartWindow)

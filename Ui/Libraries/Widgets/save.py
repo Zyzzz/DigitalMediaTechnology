@@ -1,28 +1,25 @@
 import pymysql
-from Ui.Libraries.Widgets import SubWindows
-class savedata():
-    db = pymysql.connect("localhost", "root", "1234", "test")
-    data=SubWindows.onedectect()
 
-    def yolo(self,db):
-        cursor = db.cursor()
+class save():
+    db = pymysql.connect("localhost", "root", "123456", "mysql")
 
-        cursor.execute("insert into algorithmtime(algorithm,time) value('YOLO',data[0];")
-        cursor.execute("insert into datalist(pictureName,algorithm,objectList) value('cat','YOLO',data[1];")
-    def MaskRCNN(self,db):
-        cursor = db.cursor()
 
-        cursor.execute("insert into algorithmtime(algorithm,time) value('MaskRCNN',data[2];")
-        cursor.execute("insert into datalist(pictureName,algorithm,objectList) value('cat','MaskRCNN',data[3];")
-    def SSD(self,db):
-        cursor = db.cursor()
+    def alt(self,al,ti):
 
-        cursor.execute("insert into algorithmtime(algorithm,time) value('SSD',data[4];")
-        cursor.execute("insert into datalist(pictureName,algorithm,objectList) value('cat','SSD',data[5];")
-    def FasterRCNN(self,db):
-        cursor = db.cursor()
+        cursor = self.db.cursor()
+        cursor.execute("insert into algorithmtime(algorithm,time) values('%s','%f')" % (al, ti))
+        print(13432524354352)
+        self.db.commit()
 
-        cursor.execute("insert into algorithmtime(algorithm,time) value('FasterRCNN',data[6];")
-        cursor.execute("insert into datalist(pictureName,algorithm,objectList) value('cat','FasterRCNN',data[7];")
+    def dl(self,pic,al,ob):
+        cursor =self.db.cursor()
+
+        # cursor.execute("insert into datalist(pictureName,algorithm,objectList) values (pic,al,ob);")
+        cursor.execute("insert into datalist(pictureName,algorithm,objectList) values ('%s','%s','%s')" % (pic, al, ob))
+        print(1343252435345656354352)
+        self.db.commit()
+    def close(self):
+        self.db.close()
+
 
 

@@ -1,6 +1,6 @@
 import sys
 import os
-
+from Ui.Libraries.Widgets.save import save
 from PyQt5.QtGui import QFontDatabase
 from PyQt5 import QtCore
 
@@ -22,6 +22,7 @@ class SubWindows(QMainWindow,Ui_MainWindow):
         self.file=''
         self.initUI()
         self.classes = []
+        self.save = save()
     def initUI(self):
         self.setupUi(self)
         self.actionopen_files.triggered.connect(self.openMsg)
@@ -33,6 +34,7 @@ class SubWindows(QMainWindow,Ui_MainWindow):
         self.origin.setPixmap(self.pixmap)
         self.statusbar.showMessage(self.file)
         self.origin.setScaledContents (True)
+        print(self.fileName())
     def oncedectect(self):
         if self.file !='':
             _translate = QtCore.QCoreApplication.translate
@@ -49,6 +51,10 @@ class SubWindows(QMainWindow,Ui_MainWindow):
             pixmap = QPixmap("D:\\result.jpg")
             self.yolo_result.setPixmap(pixmap)
             self.yolo_result.setScaledContents(True)
+            self.save.alt('YOLO',yolotime)
+            self.save.dl(self.fileName(),'YOLO',yolostringresults)
+
+
 
             self.maskRCNN = demo.MaskRCNN()
             detect_timer.tic()
@@ -58,6 +64,8 @@ class SubWindows(QMainWindow,Ui_MainWindow):
             pixmap = QPixmap("D:\\result2.jpg")
             self.Mask_result.setPixmap(pixmap)
             self.Mask_result.setScaledContents(True)
+            self.save.alt('MaskRCNN',MaskRCNNtime)
+            self.save.dl(self.fileName(),'MaskRCNN',maskRCNNstringresults)
 
             detect_timer.tic()
             ssdstringresult=ssd_notebook.dome(self.file,classesallnum)
@@ -66,6 +74,8 @@ class SubWindows(QMainWindow,Ui_MainWindow):
             pixmap = QPixmap("D:\\result3.jpg")
             self.SSD_result.setPixmap(pixmap)
             self.SSD_result.setScaledContents(True)
+            self.save.alt('SSD',SSDtime)
+            self.save.dl(self.fileName(),'SSD',ssdstringresult)
 
             detect_timer.tic()
             fasterrcnnresult=test.dectect(self.file,classesall)
@@ -74,3 +84,9 @@ class SubWindows(QMainWindow,Ui_MainWindow):
             pixmap = QPixmap(r"D:\result4.jpg")
             self.Faster_result.setPixmap(pixmap)
             self.Faster_result.setScaledContents(True)
+            self.save.alt('FasterRCNN',fasterTime)
+            self.save.dl(self.fileName(),'FasterRCNN',fasterrcnnresult)
+            self.save.close()
+    def fileName(self):
+        if self.file!='':
+            return self.file.split('/')[len(self.file.split('/'))-1]
