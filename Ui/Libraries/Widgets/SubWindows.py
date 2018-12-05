@@ -33,6 +33,7 @@ class SubWindows(QMainWindow,Ui_MainWindow):
         self.origin.setPixmap(self.pixmap)
         self.statusbar.showMessage(self.file)
         self.origin.setScaledContents (True)
+        print(self.fileName())
     def oncedectect(self):
         if self.file !='':
             _translate = QtCore.QCoreApplication.translate
@@ -74,3 +75,6 @@ class SubWindows(QMainWindow,Ui_MainWindow):
             pixmap = QPixmap(r"D:\result4.jpg")
             self.Faster_result.setPixmap(pixmap)
             self.Faster_result.setScaledContents(True)
+    def fileName(self):
+        if self.file!='':
+            return self.file.split('/')[len(self.file.split('/'))-1]
