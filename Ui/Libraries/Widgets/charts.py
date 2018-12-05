@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow,QApplication
+from PyQt5.QtWidgets import QMainWindow,QApplication,QTableWidget,QTableWidgetItem
 from PyQt5.QtCore import pyqtSignal
 import pymysql
 import os
@@ -122,27 +122,44 @@ class Ui_MainWindow(object):
         is_first = True
         print(1)
         temp_sqlstring = self.sqlstring
-        if self.pic.text() != -1:
-            is_first = False
-            temp_sqlstring += "where pictureName='" + self.pic.text() + "'"
+        pictureName = self.pic.text()
+        algorithm = self.al.text()
 
-            if self.al.text() != -1:
+        if pictureName != -1:
+            is_first = False
+            temp_sqlstring += "where pictureName='" + pictureName + "'"
+            if algorithm != -1:
                 if is_first == True:
-                    temp_sqlstring += "where algorithm='" + self.al.text() + "'"
+                    temp_sqlstring += "where algorithm='" + algorithm + "'"
                 else:
                     is_first = False
-                    temp_sqlstring += "and algorithm='" + self.al.text() + "'"
-        self.result_out.clearContents()  # 每一次查询时清除表格中信息
-
+                    temp_sqlstring += "and algorithm='" + algorithm + "'"
+        # self.result_out.clearContents()  # 每一次查询时清除表格中信息
+        if(temp_sqlstring == "select * from datalist where pictureName=''and algorithm=''"):
+            temp_sqlstring = "select * from datalist"
+        if(pictureName=='' and algorithm!=''):
+            temp_sqlstring = "select * from datalist where algorithm= " +"\'"+algorithm+"\'"
+        if(pictureName!='' and algorithm==''):
+            temp_sqlstring = "select * from datalist where pictureName= " +"\'"+pictureName+"\'"
         print(temp_sqlstring)
-        self.cur.execute(temp_sqlstring)
+        self.cur.execute(temp_sqlstring.replace('\\', ''))
         rows = self.cur.fetchall()
+        row = self.cur.rowcount
+        vol = len(rows[0])
+        self.tableWidget.setRowCount(row)
+        self.tableWidget.setColumnCount(vol)
 
-        for i in rows:
-            print("----------", i)
-            for j in 4:
-                newItem = QtWidgets.QTableWidgetItem(i[j])
-                self.tableWidget.setItem(i,j, newItem)
+        for i in range(row):
+            for j in range(vol):
+                temp_data = rows[i][j]  # 临时记录，不能直接插入表格
+                data = QTableWidgetItem(str(temp_data))  # 转换后可插入表格
+                self.tableWidget.setItem(i, j, data)
+
+        # for i in rows:
+        #     print("----------", i)
+        #     for j in 4:
+        #         newItem = QtWidgets.QTableWidgetItem(i[j])
+        #         self.tableWidget.setItem(i,j, newItem)
 
 class MyWindow(QMainWindow,Ui_MainWindow):
     pyqt_clicked1 = pyqtSignal()
